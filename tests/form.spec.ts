@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Formularz rejestracyjny', () => {
 
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:8081');
+    await page.goto('http://localhost:8080');
   });
 
   async function selectDate20000213(page) {
