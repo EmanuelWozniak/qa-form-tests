@@ -6,6 +6,28 @@ test.describe('Formularz rejestracyjny', () => {
     await page.goto('http://localhost:8081');
   });
 
+  async function selectDate20000213(page) {
+  const targetDate = new Date('2000-02-13');
+  const today = new Date();
+
+  let yearDiff = today.getFullYear() - targetDate.getFullYear();
+  let monthDiff = today.getMonth() - targetDate.getMonth();
+
+  if (monthDiff < 0) {
+  yearDiff -= 1;
+  monthDiff += 12;
+  }
+
+  for (let i = 0; i < yearDiff; i++) {
+  await page.locator('button.mx-btn-icon-double-left').click();
+  }
+  for (let i = 0; i < monthDiff; i++) {
+  await page.locator('button.mx-btn-icon-left').click();
+  }
+
+  await page.locator('td.cell[title="2000-02-13"]').click();
+  }
+
   test('Scenariusz 1: Poprawna rejestracja', async ({ page }) => {
     await page.getByLabel('Imię*').fill('Emanuel');
     await page.getByLabel('Nazwisko*').fill('Woźniak');
@@ -13,13 +35,7 @@ test.describe('Formularz rejestracyjny', () => {
     await page.locator('input[placeholder="Hasło"]').first().fill('Test12345!');
     await page.locator('input[placeholder="Powtórz hasło"]').fill('Test12345!');
     await page.getByLabel('Data urodzenia*').click();
-    for (let i = 0; i < 25; i++) {
-      await page.locator('button.mx-btn-icon-double-left').click();
-    }
-    for (let i = 0; i < 3; i++) {
-      await page.locator('button.mx-btn-icon-left').click();
-    }
-    await page.locator('td.cell[title="2000-02-13"]').click();
+    await selectDate20000213(page);
     await page.getByLabel('Język').selectOption({ label: 'polski' });
     await page.getByPlaceholder('Numer telefonu').fill('501123456');
     await page.locator('label:has-text("Akceptuję") div.fake-input').click();
@@ -49,13 +65,7 @@ test.describe('Formularz rejestracyjny', () => {
     await page.locator('input[placeholder="Hasło"]').first().fill('Test12345!');
     await page.locator('input[placeholder="Powtórz hasło"]').fill('Test12345!');
     await page.getByLabel('Data urodzenia*').click();
-       for (let i = 0; i < 25; i++) {
-         await page.locator('button.mx-btn-icon-double-left').click();
-       }
-       for (let i = 0; i < 3; i++) {
-         await page.locator('button.mx-btn-icon-left').click();
-       }
-    await page.locator('td.cell[title="2000-02-13"]').click();
+    await selectDate20000213(page);
     await page.getByLabel('Język').selectOption({ label: 'polski' });
     await page.getByPlaceholder('Numer telefonu').fill('501123456');
     await page.locator('label:has-text("Akceptuję") div.fake-input').click();
@@ -71,13 +81,7 @@ test.describe('Formularz rejestracyjny', () => {
     await page.locator('input[placeholder="Hasło"]').first().fill('Test12345!');
     await page.locator('input[placeholder="Powtórz hasło"]').fill('Test1234');
     await page.getByLabel('Data urodzenia*').click();
-       for (let i = 0; i < 25; i++) {
-         await page.locator('button.mx-btn-icon-double-left').click();
-       }
-       for (let i = 0; i < 3; i++) {
-         await page.locator('button.mx-btn-icon-left').click();
-       }
-    await page.locator('td.cell[title="2000-02-13"]').click();
+    await selectDate20000213(page);
     await page.getByLabel('Język').selectOption({ label: 'polski' });
     await page.getByPlaceholder('Numer telefonu').fill('501123456');
     await page.locator('label:has-text("Akceptuję") div.fake-input').click();
@@ -93,13 +97,7 @@ test.describe('Formularz rejestracyjny', () => {
     await page.locator('input[placeholder="Hasło"]').first().fill('Test12345!');
     await page.locator('input[placeholder="Powtórz hasło"]').fill('Test12345!');
     await page.getByLabel('Data urodzenia*').click();
-       for (let i = 0; i < 25; i++) {
-         await page.locator('button.mx-btn-icon-double-left').click();
-       }
-       for (let i = 0; i < 3; i++) {
-         await page.locator('button.mx-btn-icon-left').click();
-       }
-    await page.locator('td.cell[title="2000-02-13"]').click();
+    await selectDate20000213(page);
     await page.getByLabel('Język').selectOption({ label: 'polski' });
     await page.getByPlaceholder('Numer telefonu').fill('501123456');
     await page.getByRole('button', { name: /zarejestruj/i }).click();
